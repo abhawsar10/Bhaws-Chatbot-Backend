@@ -44,13 +44,19 @@ async function extractText(html) {
     try {
         const $ = cheerio.load(html);
 
-        // Remove script tags and their content
+        // Remove script tags and their conten
         $('script').remove();
+        $('iframe').remove();
+        
+        const descriptionElement = $('.content-review');
+        console.log(descriptionElement)
 
-        // Extract text content from the remaining HTML
-        const textContent = $('body').text();
 
-        return textContent.trim(); // Trim whitespace from the text
+        let info = {
+            "description": descriptionElement.text(),
+        }
+
+        return info; 
 
     } catch (error) {
         console.error('Error extracting text:', error);
@@ -61,10 +67,9 @@ async function extractText(html) {
 // Main function to fetch and filter text content
 async function scrapeWebPage(url) {
     const html = await fetchHTML(url);
-    const textContent = await extractText(html);
-
-    if (textContent) {
-        return textContent
+    const usefulContent = await extractText(html);
+    if (usefulContent) {
+        return usefulContent
     } else {
         console.log('No text content found.');
     }
