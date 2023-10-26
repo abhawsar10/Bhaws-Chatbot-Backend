@@ -14,7 +14,7 @@ export async function generateChatResponse(message){
     const openai = new OpenAI({apiKey: process.env.OPENAI_API_KEY})
 
     const chatcompletion = await openai.chat.completions.create({
-        model: "gpt-3.5-turbo",
+        model: "gpt-3.5-turbo-16k",
         messages: [{ role: "user", content: message}]
     });
     
