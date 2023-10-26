@@ -15,6 +15,7 @@ export async function generateChatResponse(message){
 
     const chatcompletion = await openai.chat.completions.create({
         model: "gpt-3.5-turbo-16k",
+        max_tokens: 1200,
         messages: [{ role: "user", content: message}]
     });
     
